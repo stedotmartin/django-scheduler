@@ -1,6 +1,7 @@
 <script>
     var $ = django.jQuery;
     function updateParams(days) {
+		$('#id_params').val("");
         param_text = "byweekday:";
         for (i = 0; i < days.length; i++) {
             //console.log(days[i])
