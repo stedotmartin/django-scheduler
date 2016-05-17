@@ -55,3 +55,13 @@ class SpectrumColorPicker(TextInput):
             attrs['id'] = "id_%s" % name
         rendered = super(SpectrumColorPicker, self).render(name, value, attrs)
         return mark_safe(rendered + self._render_js(attrs['id'], value))
+        
+class RuleCreator(TextInput):
+    class Media:
+        js = ('rulecreator.js','/static/js/jquery-2.1.3.min.js',)
+    
+    def render(self, name, value, attrs=None):
+        if not 'id' in attrs:
+            attrs['id'] = "id_%s" % name
+        rendered = super(RuleCreator, self).render(name, value, attrs)
+        return mark_safe(rendered + self._render_js(attrs['id'], value))

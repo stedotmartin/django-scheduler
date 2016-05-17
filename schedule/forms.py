@@ -1,7 +1,9 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from schedule.models import Event, Occurrence
+from django.utils.safestring import mark_safe
+from schedule.models import Event, Occurrence, Rule
 from schedule.widgets import SpectrumColorPicker
+from django.template.loader import render_to_string
 
 
 class SpanForm(forms.ModelForm):
@@ -42,3 +44,20 @@ class EventAdminForm(forms.ModelForm):
         widgets = {
           'color_event': SpectrumColorPicker,
         }
+
+class RuleWidget(forms.Widget):
+	template_name = 'schedule/rule_creator.html'
+	def render(self, name, value, attrs=None):
+		context = {
+		'url': '/'
+		}
+		return mark_safe(render_to_string(self.template_name, context))
+		
+class RuleForm(forms.ModelForm):
+	params = forms.CharField(widget=RuleWidget)
+	class Meta:
+		model = Rule
+		exclude = []
+		
+		
+

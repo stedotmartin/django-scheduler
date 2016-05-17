@@ -13,10 +13,8 @@ from schedule.utils import get_model_bases
 freqs = (("YEARLY", _("Yearly")),
          ("MONTHLY", _("Monthly")),
          ("WEEKLY", _("Weekly")),
-         ("DAILY", _("Daily")),
-         ("HOURLY", _("Hourly")),
-         ("MINUTELY", _("Minutely")),
-         ("SECONDLY", _("Secondly")))
+         ("DAILY", _("Daily")),)
+
 
 
 @python_2_unicode_compatible
