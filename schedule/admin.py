@@ -6,6 +6,7 @@ from schedule.forms import EventAdminForm, RuleForm
 class CalendarAdminOptions(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ['name']
+    
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -13,6 +14,8 @@ class EventAdmin(admin.ModelAdmin):
 
 class RuleAdmin(admin.ModelAdmin):
 	form = RuleForm
+
+
 	
 admin.site.register(Calendar, CalendarAdminOptions)
 admin.site.register(Event, EventAdmin)

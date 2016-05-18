@@ -6,6 +6,7 @@ from schedule.widgets import SpectrumColorPicker
 from django.template.loader import render_to_string
 
 
+
 class SpanForm(forms.ModelForm):
     start = forms.SplitDateTimeField(label=_("start"))
     end = forms.SplitDateTimeField(label=_("end"),
@@ -17,6 +18,23 @@ class SpanForm(forms.ModelForm):
                 raise forms.ValidationError(_(u"The end time must be later than start time."))
         return self.cleaned_data
 
+class RuleWidget(forms.Widget):
+	template_name = 'schedule/rule_creator.html'
+	def render(self, name, value, attrs=None):
+		context = {
+		'url': '/'
+		}
+		return mark_safe(render_to_string(self.template_name, context))
+		
+
+class RuleForm(forms.ModelForm):
+	params = forms.CharField(widget=RuleWidget)
+	class Meta:
+		model = Rule
+		exclude = []
+
+
+		
 
 class EventForm(SpanForm):
     def __init__(self, *args, **kwargs):
@@ -40,24 +58,10 @@ class OccurrenceForm(SpanForm):
 class EventAdminForm(forms.ModelForm):
     class Meta:
         exclude = []
+        
         model = Event
         widgets = {
           'color_event': SpectrumColorPicker,
         }
 
-class RuleWidget(forms.Widget):
-	template_name = 'schedule/rule_creator.html'
-	def render(self, name, value, attrs=None):
-		context = {
-		'url': '/'
-		}
-		return mark_safe(render_to_string(self.template_name, context))
-		
-class RuleForm(forms.ModelForm):
-	params = forms.CharField(widget=RuleWidget)
-	class Meta:
-		model = Rule
-		exclude = []
-		
-		
 
